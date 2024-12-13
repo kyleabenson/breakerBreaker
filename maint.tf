@@ -40,3 +40,8 @@ resource "google_container_cluster" "primary" {
     machine_type = "e2-medium" # Or another machine type
     disk_size    = 30          # In GB
   }
+
+
+output "investigation_url" {
+     value = format("%s/%s","https://console.cloud.google.com/troubleshooting/investigations/list?project=",var.gcp_project_id)
+}
