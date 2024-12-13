@@ -10,13 +10,19 @@ variable "user_id" {
 resource "google_project_service" "apis" {
   service            = "cloudaicompanion.googleapis.com"
   disable_on_destroy = true
-  project = "gcp-project-id"
+  project = var.gcp_project_id
 }
 
 resource "google_project_service" "apis" {
   service            = "geminicloudassist.googleapis.com"
   disable_on_destroy = true
-  project = "gcp-project-id"
+  project = var.gcp_project_id
+}
+
+resource "google_project_service" "apis" {
+  service            = "container.googleapis.com"
+  disable_on_destroy = true
+  project = var.gcp_project_id
 }
 
 resource "google_project_iam_member" "gemini_cloud_assist_investigation_admin" {
