@@ -30,3 +30,13 @@ resource "google_project_iam_member" "gemini_for_google_cloud_user" {
   role    = "roles/cloudaicompanion.user"
   member  = var.user_id
 }
+
+resource "google_container_cluster" "primary" {
+  name               = "my-gke-cluster"
+  location           = "us-central1-a" # Replace with your desired location
+  initial_node_count = 1
+
+  node_config {
+    machine_type = "e2-medium" # Or another machine type
+    disk_size    = 30          # In GB
+  }
