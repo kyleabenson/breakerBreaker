@@ -7,19 +7,19 @@ variable "user_id" {
     description = "Name of the principle who will access investigations. Should be in a format like: username@domain.com:user"
 }
 
-resource "google_project_service" "apis" {
+resource "google_project_service" "aicompnaionapi" {
   service            = "cloudaicompanion.googleapis.com"
   disable_on_destroy = true
   project = var.gcp_project_id
 }
 
-resource "google_project_service" "apis" {
+resource "google_project_service" "geminiapi" {
   service            = "geminicloudassist.googleapis.com"
   disable_on_destroy = true
   project = var.gcp_project_id
 }
 
-resource "google_project_service" "apis" {
+resource "google_project_service" "k8sapi" {
   service            = "container.googleapis.com"
   disable_on_destroy = true
   project = var.gcp_project_id
