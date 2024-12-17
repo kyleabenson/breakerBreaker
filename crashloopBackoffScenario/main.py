@@ -8,7 +8,7 @@ def main():
         try:
             # Simulate some work
             time.sleep(random.uniform(0.1, 1))  # Wait for a random time
-            logger.info('Doing something, everything looks fine here...')
+            logging.info('Doing something, everything looks fine here...')
         except Exception as e:
             logging.exception("An error occurred") # Log the exception with traceback
             sys.exit(1)
