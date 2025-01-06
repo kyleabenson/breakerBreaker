@@ -17,3 +17,4 @@ spec:
       containers:
       - name: simple-app
         image: ghcr.io/kyleabenson/breakerbreaker:master
+        imagePullPolicy: Always
