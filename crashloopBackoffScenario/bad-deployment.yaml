@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-app-broken
+  labels:
+    app: simple-app-broken
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: simple-app-broken
+  template:
+    metadata:
+      labels:
+        app: simple-app-broken
+    spec:
+      containers:
+      - name: simple-app-broken
+        image: ghcr.io/kyleabenson/breakerbreaker:broken
+        imagePullPolicy: Always
