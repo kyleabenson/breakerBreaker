@@ -42,3 +42,8 @@ variable "apphub_application_id" {
   description = "The AppHub application identifier"
   type = string
 }
+
+variable "gcp_project_id" {
+  type = string
+  description = "Project ID where issues occur and where you'll create an investigation"
+}

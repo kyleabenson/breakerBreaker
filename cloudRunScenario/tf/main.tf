@@ -4,7 +4,7 @@
 
 module "frontend-service-cloud-run" {
   source                        = "github.com/GoogleCloudPlatform/terraform-google-cloud-run//modules/v2?ref=v0.17.2"
-  project_id                    = "kb-workspace"
+  project_id                    = var.gcp_project_id
   location                      = "us-central1"
   service_name                  = var.frontend-service-cloud-run_service_name
   containers                    = [{"container_image" = "gcr.io/design-center-container-repo/three-tier-app-fe:latest-02012025", "container_name" = "", "env_vars" = {"backend_service_cloud_run_SERVICE_ENDPOINT" = module.backend-service-cloud-run.service_uri}, "ports" = {"container_port" = 80, "name" = "http1"}, "resources" = {"cpu_idle" = true, "startup_cpu_boost" = false}}]
@@ -19,7 +19,7 @@ module "frontend-service-cloud-run" {
   }
   cloud_run_deletion_protection = false
   enable_prometheus_sidecar     = true
-  depends_on                    = [module.project-services-kb-workspace, module.project-services-billing-project]
+  depends_on                    = [module.project-services-project, module.project-services-billing-project]
 }
 module "backend-service-cloud-run" {
   source                        = "github.com/GoogleCloudPlatform/terraform-google-cloud-run//modules/v2?ref=v0.17.2"
@@ -86,15 +86,15 @@ module "apphub" {
   service_uris   = concat([module.frontend-service-cloud-run.apphub_service_uri], [module.backend-service-cloud-run.apphub_service_uri], [module.database-postgresql.apphub_service_uri], [module.memorystore.apphub_service_uri])
   application_id = var.apphub_application_id
 }
-module "project-services-kb-workspace" {
+module "project-services-project" {
   source                      = "github.com/terraform-google-modules/terraform-google-project-factory//modules/project_services?ref=v17.1.0"
-  project_id                  = "kb-workspace"
+  project_id                  = var.gcp_project_id
   disable_services_on_destroy = false
   activate_apis               = ["compute.googleapis.com", "cloudresourcemanager.googleapis.com", "storage-api.googleapis.com", "cloudkms.googleapis.com", "iam.googleapis.com", "accesscontextmanager.googleapis.com", "serviceusage.googleapis.com", "run.googleapis.com", "cloudbilling.googleapis.com", "monitoring.googleapis.com"]
 }
 module "project-services-billing-project" {
   source                      = "github.com/terraform-google-modules/terraform-google-project-factory//modules/project_services?ref=v17.1.0"
-  project_id                  = "kb-workspace"
+  project_id                  = var.gcp_project_id
   disable_services_on_destroy = false
   activate_apis               = ["workflows.googleapis.com", "memorystore.googleapis.com", "apphub.googleapis.com", "cloudkms.googleapis.com", "serviceconsumermanagement.googleapis.com", "compute.googleapis.com", "redis.googleapis.com", "iam.googleapis.com", "run.googleapis.com", "cloudbilling.googleapis.com", "memcache.googleapis.com", "serviceusage.googleapis.com", "storage-api.googleapis.com", "monitoring.googleapis.com", "accesscontextmanager.googleapis.com", "cloudscheduler.googleapis.com", "networkconnectivity.googleapis.com", "cloudresourcemanager.googleapis.com", "servicenetworking.googleapis.com", "sqladmin.googleapis.com"]
 }
