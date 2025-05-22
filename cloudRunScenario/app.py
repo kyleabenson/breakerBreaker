@@ -1,10 +1,7 @@
-# Suggested code may be subject to a license. Learn more: ~LicenseLog:3840576990.
-from flask import Flask
-app = Flask(__name__)
+from fastapi import FastAPI
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+app = FastAPI()
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+@app.get("/")
+async def read_root():
+    return {"message": "Hello World"}
