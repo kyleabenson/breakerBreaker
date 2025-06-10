@@ -1,5 +1,5 @@
 resource "google_cloud_run_v2_service" "default" {
-  name     = "cloudrun-service"
+  name     = "backend-service"
   location = "us-central1"
   deletion_protection = false
   invoker_iam_disabled = true
