@@ -12,6 +12,11 @@ resource "google_cloud_run_v2_service" "default" {
       }
       image = "us-west1-docker.pkg.dev/kb-workspace/apprun-repo/apprun-backend:latest"
       depends_on = ["collector"]
+      liveness_probe {
+        http_get {
+          path = "/liveness-probe"
+        }
+      }
       env {
         name = "OTEL_SERVICE_NAME"
         value = "backend"
