@@ -76,6 +76,7 @@ resource "google_cloud_run_v2_job" "default" {
   name     = "load-generator"
   location = "us-central1"
   deletion_protection = false
+  start_execution_token = "start-once-created"
   template {
     template{
       containers {
@@ -88,4 +89,5 @@ resource "google_cloud_run_v2_job" "default" {
       }
     }
   }
+  depends_on = [google_cloud_run_v2_service.default]
 }
