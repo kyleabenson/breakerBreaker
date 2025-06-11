@@ -78,6 +78,7 @@ resource "google_storage_bucket_object" "default" {
 }
 
 resource "google_cloud_run_v2_job" "default" {
+  provider = google-beta
   name     = "load-generator"
   location = "us-central1"
   deletion_protection = false
