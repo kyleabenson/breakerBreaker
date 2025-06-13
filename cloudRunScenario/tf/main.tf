@@ -14,7 +14,8 @@ resource "google_cloud_run_v2_service" "default" {
       depends_on = ["collector"]
       liveness_probe {
         http_get {
-          path = "/liveness-probe"
+          path = "/health"
+          port = 8000
         }
       }
       env {
